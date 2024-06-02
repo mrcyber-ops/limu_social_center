@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('posts', [PostController::class, 'index'])->name('post.index');
-    Route::post('posts/store', [PostController::class, 'store'])->name('post.store');
+    // Route::get('posts', [PostController::class, 'index'])->name('post.index');
+    // Route::post('posts/store', [PostController::class, 'store'])->name('post.store');
+    Route::resource('posts', PostController::class);
+
 
     Route::post('posts/like/{post}/{user}', [PostLikeController::class, 'toggleLike'])->name('posts.likes');
 });
