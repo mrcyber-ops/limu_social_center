@@ -41,8 +41,10 @@ class PostController extends Controller
      * Display the specified resource.
      */
     public function show(Post $post) {
+        $post->load('comments.user'); // Load comments and their associated users
         return view('users.posts.show', compact('post'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.

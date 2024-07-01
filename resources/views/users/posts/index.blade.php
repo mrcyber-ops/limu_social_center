@@ -3,7 +3,7 @@
 @section('content')
 <div class="container bg-white p-3">
     <div class="row">
-        <!-- Text area -->
+        <!-- Text area for new post -->
         <div class="col">
             <form action="{{ route('posts.store') }}" method="POST">
                 @csrf
@@ -55,6 +55,33 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+
+                            <!-- Comments Section -->
+                            <div class="mt-3">
+                                <h5>Comments</h5>
+                                @foreach ($post->comments as $comment)
+                                    <div class="card mt-2">
+                                        <div class="card-body">
+                                            <h6>{{ $comment->user->name }}</h6>
+                                            <p>{{ $comment->content }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <!-- Add Comment Form -->
+                                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mt-2">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="form-control @error('content') border border-danger @enderror" name="content" placeholder="Add a comment" rows="2" required></textarea>
+                                        @error('content')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Comment</button>
                                 </form>
                             </div>
                         </div>
